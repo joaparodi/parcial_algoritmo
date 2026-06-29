@@ -1,4 +1,4 @@
-from copy import copy, deepcopy
+from copy import copy
 from typing import Any
 
 
@@ -15,9 +15,9 @@ class Stack:
     
     def show(self) -> None:
         stack_aux = Stack()
-        stack_aux.__elements = copy(self.__elements)
+        stack_aux._Stack__elements = copy(self._Stack__elements)
 
-        while stack_aux.size() > 0: 
+        while stack_aux.size() > 0:
             value = stack_aux.pop()
             print(value)
         

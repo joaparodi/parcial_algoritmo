@@ -23,6 +23,6 @@ class Queue:
         return value
 
     def show(self) -> None:
-        for i in range(len(self.__elements)):
+        for _ in range(len(self.__elements)):
             value = self.move_to_end()
             print(value)
