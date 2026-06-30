@@ -7,7 +7,8 @@ from stack import Stack
 from random import randint
 from super_heroes_data import superheroes
 
-
+print("ejercicio 1")
+print()
 # Ejercicio 1: Dado una lista simple de python (array) de 15 superheroes realizar dos funciones recursivas:
 # funcion recursiva  para buscar, determinar si Capitan America esta en la lista.
 # funcion recursiva para listar los superheroes de la lista.
@@ -33,7 +34,7 @@ def bus_cap(lista, indice):
 
 resultado = bus_cap(lista, len(lista) - 1)
 
-print("se encuentra el Capitan America en la lista:")
+print("determinar si Capitan America esta en la lista.")
    
 if resultado:
     print("se encontro el Capitan America en la lista")
