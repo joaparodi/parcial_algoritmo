@@ -58,8 +58,14 @@ class List(list):
         return len(self)
 
     def filter_contain_on_bio(self, values):
-        for element in self:
-            if any(value in element.bio.lower() for value in values):
+         for element in self:
+            bio_min = element.bio.lower()
+
+            bio_limpia = bio_min.replace(".", " ").replace(",", " ")
+
+            palabras_bio = bio_limpia.split()
+
+            if any(value in palabras_bio for value in values):
                 print(element)
 
     def filter_start_with(self, values):
