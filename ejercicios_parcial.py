@@ -50,16 +50,19 @@ def listar_superheroes(lista, indice):
     print(lista[indice]["name"])
     listar_superheroes(lista, indice - 1)
 
+print()
+print("lista de nombres de los superheroes")
 
 listar_superheroes(lista, len(lista) - 1)
+print()
 
 
 
 
 
 
-
-
+print("Ejercicio 2:")
+print()
 # Ejercicio 2: Dada una lista de personajes de marvel (usar el archivo adjunto) debe tener 100 o mas, resolver:
 # Listado ordenado de manera ascendente por nombre de los personajes.
 # Determinar en que posicion esta The Thing y Rocket Raccoon.
@@ -95,6 +98,8 @@ cargar_lista(lista_P)
         
         
 # Listado ordenado de manera ascendente por nombre de los personajes.
+print("listado de nombre de personajes de forma ascendente:")
+print()
 
 def by_name(item):
     return item.name       
@@ -104,8 +109,9 @@ lista_P.add_criterion("name",by_name)
 lista_P.sort_by_criterion("name")      
         
 lista_P.show()       
-        
-        
+
+print()        
+     
 # Determinar en que posicion esta The Thing y Rocket Raccoon.
 the_thing = lista_P.search("The Thing", 'name')
 
@@ -168,6 +174,7 @@ print()
 
 # Listar los superheores que comienzan con  Bl, G, My, y W.
 
+print("lista de personajes que comienzan con  Bl, G, My, y W")
 lista_P.filter_start_with(("Bl","G","My","W"))
 print()
 
@@ -222,7 +229,6 @@ lista_P.filter_contain_on_bio(['time-traveling','suit'])
 
 print()
 
-# Como delete_value retorna el objeto eliminado (porque self.pop retorna el elemento)
 electro_eliminado = lista_P.delete_value("Electro", "name")
 
 if electro_eliminado is not None:
