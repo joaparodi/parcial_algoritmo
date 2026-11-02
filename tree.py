@@ -1,0 +1,225 @@
+from typing import Any, Optional
+
+from queue import Queue
+from heap import HeapMin
+
+
+class Node():
+
+    def __init__(self, value=None, other_values=None):
+        self.value = value
+        self.left = None
+        self.right = None
+        self.other_values = other_values
+        self.height = 0 #altura del nodo, se inicializa en 0 para un nodo hoja
+    
+    def __str__(self):
+        return self.value
+
+
+class BinaryTree():
+
+    def __init__(self):
+        self.root = None
+
+    def height(self, root):
+        if root is None:
+            return -1
+        else:
+            return root.height
+    
+    def update_height(self, root):
+        if root is not None:
+            left_height = self.height(root.left)
+            right_height = self.height(root.right)
+            root.height = (left_height if left_height > right_height else right_height) + 1
+
+    def insert_node(self, value: Any, other_value=None) -> None:
+
+        def __insert_node(root, value, other_value=None):
+            if root is None:
+                # print(f'lugar vacio insertar {value}')
+                root = Node(value, other_value)
+            elif value < root.value:
+                # print(f'ir a la izquierda de {root.value}')
+                root.left = __insert_node(root.left, value, other_value)
+            else:
+                # print(f'ir a la derecha de {root.value}')
+                root.right = __insert_node(root.right, value, other_value)
+            
+            root = self.auto_balance(root)
+            self.update_height(root)
+            return root
+            
+        self.root = __insert_node(self.root, value, other_value)
+
+    def delete_node(self, value: Any) -> Optional[Any]:
+        def __replace(root):
+            # print(root.value)
+            aux = None
+            if root.right is None:
+                # print('mayor encontrado')
+                return root.left, root
+            else:
+                # print('segui buscando a la derecha')
+                root.right, aux = __replace(root.right)
+            return root, aux
+
+        def __delete_node(root, value):
+            x = None
+            other_value = None
+            if root is not None:
+                if value < root.value:
+                    # print('ir a la izq')
+                    # input()
+                    root.left, x, other_value = __delete_node(root.left,value)
+                elif value > root.value:
+                    # print('ir a la derecha')
+                    # input()
+                    root.right, x, other_value = __delete_node(root.right, value)
+                else:
+                    # print('valor encontrado')
+                    # input()
+                    x = root.value
+                    other_value = root.other_values
+                    aux = None
+                    if root.left is None:
+                        # print('no tiene hijo izquierdo')
+                        # input()
+                        return root.right, x, other_value
+                    elif root.right is None:
+                        # print('no tiene hijo derecho')
+                        # input()
+                        return root.left, x, other_value
+                    else:
+                        # print('buscar remplazo')
+                        # input()
+                        root.left, aux = __replace(root.left)
+                        root.value = aux.value
+
+            root = self.auto_balance(root)
+            self.update_height(root)
+            return root, x, other_value
+
+        other_value = None
+        self.root, x, other_value = __delete_node(self.root, value)
+
+        return x, other_value
+
+    def search(self, value) -> Optional[Any]:
+        def __search(root, value):
+            aux = None
+            if root is not None:
+            
+                if root.value == value:
+                    aux = root
+                elif value < root.value:
+                    aux = __search(root.left, value)
+                elif value > root.value:
+                    aux = __search(root.right, value)
+
+            return aux
+
+
+        node = __search(self.root, value)
+        
+        return node 
+    
+    def auto_balance(self, root):
+        if root is not None:
+            if self.height(root.left) - self.height(root.right) == 2:
+                if self.height(root.left.left) >= self.height(root.left.right):
+                    root = self.simple_rotation(root, True)
+                else:
+                    root = self.double_rotation(root, True)
+            elif self.height(root.right) - self.height(root.left) == 2:
+                if self.height(root.right.right) >= self.height(root.right.left):
+                    root = self.simple_rotation(root, False)
+                else:
+                    root = self.double_rotation(root, False)
+        return root
+
+    def simple_rotation(self, root, control):
+        if control: # rotaicon hacia la derecha
+            aux = root.left
+            root.left = aux.right
+            aux.right = root
+        else: # rotacion hacia la izquierda
+            aux = root.right
+            root.right = aux.left
+            aux.left = root
+        
+        self.update_height(root)
+        self.update_height(aux)
+        root = aux
+        return root
+    
+    def double_rotation(self, root, control):
+        if control: # rotacion doble a la derecha
+            root.left = self.simple_rotation(root.left, False)
+            root = self.simple_rotation(root, True)
+        else: # rotacion doble izquierda
+            root.right = self.simple_rotation(root.right, True)
+            root = self.simple_rotation(root, False)
+        return root
+
+    def inorden(self) -> None:# izquierda, nodo, derecha, evalua en sub arboles // datos de forma ascendente, primero los mas chicos y despues los mas grandes
+        
+        def __inorden(root):
+            if root.left is not None:
+                # print(f'anda a la izquierda de {root.value}')
+                __inorden(root.left)
+            # print(f'procesa nodo actual')
+            print(root.value, root.height)
+            if root.right is not None:
+                # print(f'anda a a derecha de {root.value}')
+                __inorden(root.right)
+
+        __inorden(self.root)
+    
+    def postorden(self) -> None:# izquierda, derecha, nodo, evalua en sub arboles  // ordena de manera decedente, primero los mas grandes y despues los mas chicos
+        
+        def __postorden(root):
+            if root is None:
+                
+            
+                if root.left is not None:
+                    __postorden(root.left)
+            
+                if root.right is not None:
+                    __postorden(root.right)
+                print(root.value)
+            
+
+        __postorden(self.root)
+
+    def preorden(self) -> None:#empieza por el root va a la izquierda y despues a la derecha
+        def __preorden(root):
+            print(root.value)
+            if root.left is not None:
+                __preorden(root.left)
+            if root.right is not None:
+                __preorden(root.right)
+
+        __preorden(self.root)
+
+    def by_level(self) -> None:#saber el nivel de cada nodo, recorre por niveles, primero el root y despues los hijos
+
+        pendings = Queue()
+
+        if self.root is not None:
+            pendings.arrive(self.root)
+            # print(f'queue')
+            # pendings.show()
+            # input()
+            while pendings.size() > 0:
+                node = pendings.attention()
+                print(node.value)
+                # input()
+                if node.left is not None:
+                    pendings.arrive(node.left)
+                if node.right is not None:
+                    pendings.arrive(node.right)
+                # print(f'queue ')
+                # pendings.show()
+                # input()
