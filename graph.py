@@ -3,7 +3,6 @@ from list_ import List
 from queue import Queue
 from stack import Stack
 from heap import HeapMin
-from random import randint
 
 
 
