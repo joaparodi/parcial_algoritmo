@@ -279,3 +279,84 @@ class Graph(List):
             peso_total += int(weight)
         print(f'peso total: {peso_total}')
     
+
+
+
+    def max_episodios_compartidos(self):
+        maximo = 0
+        pares = []
+
+        for vertice in self:
+            origen = vertice.value
+
+            for arista in vertice.edges:
+                destino = arista.destination
+                peso = arista.weight
+
+                if origen < destino:          
+                    if peso > maximo:
+                        maximo = peso
+                        pares = [(origen, destino)]
+                    elif peso == maximo:
+                        pares.append((origen, destino))
+
+        return maximo, pares
+
+
+    def personajes_en_todos_los_episodios(self, total):
+        personajes = []
+
+        for vertice in self:
+            for arista in vertice.edges:
+                if arista.weight == total:
+                    if vertice.value not in personajes:
+                        personajes.append(vertice.value)
+
+        return personajes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

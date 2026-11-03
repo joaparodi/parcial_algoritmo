@@ -223,8 +223,7 @@ class BinaryTree():
                 # print(f'queue ')
                 # pendings.show()
                 # input()
-<<<<<<< HEAD
-    
+
     
     def proxy_search(self, prefix: str) -> None:
         
@@ -269,22 +268,69 @@ class BinaryTree():
         if self.root is not None:
             __recorrer(self.root)
                 
-    def contar_tipo(self, tipo):
-        def __contar_tipo(root):
+    
+    def contar_tipos(self):
+        conteo = {}
+
+        def __contar_tipos(root):
+            if root.left is not None:
+                __contar_tipos(root.left)
+
+            for tipo in root.other_values.tipo:        
+                if tipo in conteo:
+                    conteo[tipo] += 1                  
+                else:
+                    conteo[tipo] = 1                  
+
+            if root.right is not None:
+                __contar_tipos(root.right)
+
+        if self.root is not None:
+            __contar_tipos(self.root)
+
+        heap = HeapMin()
+        for tipo, cantidad in conteo.items():
+            heap.arrive(tipo, cantidad)
+
+        print("Cantidad de Pokémon por tipo:")
+        while heap.size() > 0:
+            prioridad, tipo = heap.attention()
+            print(f"- {tipo}: {prioridad}")
+                
+    def contar_mega(self):
+        def __contar_mega(root):
             cant = 0
             if root.left is not None:
-                cant += __contar_tipo(root.left)
+                cant += __contar_mega(root.left)
 
-            if tipo in root.other_values.tipo:
+            if root.other_values.mega:
                 cant += 1
 
             if root.right is not None:
-                cant += __contar_tipo(root.right)
+                cant += __contar_mega(root.right)
             return cant
 
         if self.root is None:
             return 0
-        return __contar_tipo(self.root)           
+        return __contar_mega(self.root)
+
+
+    def contar_gigamax(self):
+        def __contar_gigamax(root):
+            cant = 0
+            if root.left is not None:
+                cant += __contar_gigamax(root.left)
+
+            if root.other_values.gigamax:
+                cant += 1
+
+            if root.right is not None:
+                cant += __contar_gigamax(root.right)
+            return cant
+
+        if self.root is None:
+            return 0
+        return __contar_gigamax(self.root)           
                 
                 
                 
@@ -298,28 +344,4 @@ class BinaryTree():
                 
                 
                 
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-=======
->>>>>>> b21bab647fe5dc7d78bc145788b9fd8955f19670
+        

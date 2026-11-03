@@ -101,14 +101,151 @@ arbol_nombre.by_level()
 
 # # 5
 
+print("\n--- lista de los pokemones debiles frente a Jolteon------")
 arbol_nombre.mostrar_debilidades("Jolteon")
+print("\n--- lista de los pokemones debiles frente a Lycanroc------")
 arbol_nombre.mostrar_debilidades("Lycanroc")
+print("\n--- lista de los pokemones debiles frente a Tyrantrum------")
 arbol_nombre.mostrar_debilidades("Tyrantrum")
 
 # # 6
 
+print("\n--- listado de tipo de pokemos y cuantos hay ------")
+arbol_nombre.contar_tipos()
+print("\n--- cantidad de pokemons con megaevolución: ------")
+print(f"{arbol_nombre.contar_mega()}")
+print("\n--- cantidad de pokemons con forma gigamax:------")
+print(f"{arbol_nombre.contar_gigamax()}")
 
-for tipo in ["Normal", "Fuego", "Agua", "Planta", "Eléctrico", "Hielo", "Lucha", "Veneno", "Tierra",
-     "Volador", "Psíquico", "Bicho", "Roca", "Fantasma", "Dragón", "Siniestro", "Acero", "Hada"]:
-    print(f"- {tipo}: {arbol_nombre.contar_tipo(tipo)}")
+
+
+# Ejercicio 2: Dado un grafo no dirigido con personajes de la saga Star Wars, implementar los algoritmos necesarios para resolver las siguientes tareas:
+# cada vértice debe almacenar el nombre de un personaje, las aristas representan la cantidad de episodios en los que aparecieron juntos ambos personajes que se relacionan;
+# hallar el árbol de expansión mínimo desde el vértice que contiene a: C-3PO, Yoda y Leia;
+# determinar cuál es el número máximo de episodio que comparten dos personajes, e indicar todos los pares de personajes que coinciden con dicho número;
+# cargue al menos los siguientes personajes: Luke Skywalker, Darth Vader, Yoda, Boba Fett, C-3PO, Leia, Rey, Kylo Ren, Chewbacca, Han Solo, R2-D2, BB-8;
+# calcule el camino mas corto desde: C-3PO a R2-D2 y desde Yoda a Darth Vader;
+# indicar qué personajes aparecieron en los nueve episodios de la saga.
+
+from graph import Graph
+
+g = Graph(is_dir=False)
+
+
+# 1.
+g.add_vertex("Luke Skywalker")
+g.add_vertex("Darth Vader")
+g.add_vertex("Yoda")
+g.add_vertex("Boba Fett")
+g.add_vertex("C3PO")
+g.add_vertex("Leia")
+g.add_vertex("Rey")
+g.add_vertex("Kylo Ren")
+g.add_vertex("Chewbacca")
+g.add_vertex("Han Solo")
+g.add_vertex("R2D2")
+g.add_vertex("BB8")
+
+# 2. peso basado en episodios juntos
+g.add_edge(3, "Luke Skywalker", "Darth Vader")
+g.add_edge(5, "Luke Skywalker", "C3PO")
+g.add_edge(5, "Luke Skywalker", "Leia")
+g.add_edge(5, "Luke Skywalker", "R2D2")
+g.add_edge(3, "Luke Skywalker", "Han Solo")
+g.add_edge(3, "Luke Skywalker", "Chewbacca")
+g.add_edge(2, "Luke Skywalker", "Yoda")
+
+g.add_edge(3, "Darth Vader", "C3PO")
+g.add_edge(3, "Darth Vader", "Leia")
+g.add_edge(3, "Darth Vader", "R2D2")
+g.add_edge(2, "Darth Vader", "Yoda")
+g.add_edge(2, "Darth Vader", "Boba Fett")
+
+g.add_edge(3, "Yoda", "C3PO")
+g.add_edge(3, "Yoda", "R2D2")
+g.add_edge(2, "Yoda", "Leia")
+
+g.add_edge(2, "Boba Fett", "Han Solo")
+g.add_edge(2, "Boba Fett", "Chewbacca")
+g.add_edge(2, "Boba Fett", "C3PO")
+g.add_edge(2, "Boba Fett", "R2D2")
+
+g.add_edge(9, "C3PO", "Leia")
+g.add_edge(9, "C3PO", "R2D2")
+g.add_edge(4, "C3PO", "Han Solo")
+g.add_edge(5, "C3PO", "Chewbacca")
+g.add_edge(3, "C3PO", "Rey")
+g.add_edge(3, "C3PO", "Kylo Ren")
+g.add_edge(3, "C3PO", "BB8")
+
+g.add_edge(6, "Leia", "R2D2")
+g.add_edge(4, "Leia", "Han Solo")
+g.add_edge(4, "Leia", "Chewbacca")
+g.add_edge(2, "Leia", "Rey")
+g.add_edge(2, "Leia", "Kylo Ren")
+
+g.add_edge(3, "Rey", "Kylo Ren")
+g.add_edge(3, "Rey", "Chewbacca")
+g.add_edge(3, "Rey", "BB8")
+g.add_edge(3, "Rey", "R2D2")
+
+g.add_edge(3, "Kylo Ren", "Chewbacca")
+g.add_edge(3, "Kylo Ren", "BB8")
+
+g.add_edge(4, "Chewbacca", "Han Solo")
+g.add_edge(5, "Chewbacca", "R2D2")
+g.add_edge(3, "Chewbacca", "BB8")
+
+g.add_edge(4, "Han Solo", "R2D2")
+
+g.add_edge(3, "R2D2", "BB8")
+
+
+# g.show()
+print()
+
+# 3
+print("Arbol de expansion minima de Leia")
+g.espansion_min("Leia")
+
+print()
+print("Arbol de expansion minima de C3PO ")
+g.espansion_min("C3PO")
+
+print()
+print("Arbol de expansion minima de Yoda")
+g.espansion_min("Yoda")
+
+
+
+# 4
+
+print()
+maximo, pares = g.max_episodios_compartidos()
+
+print(f"Máximo de episodios compartidos: {maximo}")
+for a, b in pares:
+    print(f"- {a} y {b}")
+
+
+# 5
+print()
+print("camino mas corto desde C3PO a R2D2")
+
+g.devolver_camino("C3PO","R2D2")
+print()
+
+print("camino mas corto desde Yoda a Darth Vader")
+g.devolver_camino("Yoda","Darth Vader")
+
+
+# 6
+
+print()
+print("Personajes que aparecieron en los 9 episodios:")
+for personaje in g.personajes_en_todos_los_episodios(9):
+    print(f"- {personaje}")
+
+
+
 
