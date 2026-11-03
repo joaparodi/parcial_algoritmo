@@ -163,7 +163,7 @@ class BinaryTree():
             root = self.simple_rotation(root, False)
         return root
 
-    def inorden(self) -> None:# izquierda, nodo, derecha, evalua en sub arboles // datos de forma ascendente, primero los mas chicos y despues los mas grandes
+    def inorden(self) -> None:
         
         def __inorden(root):
             if root.left is not None:
@@ -177,7 +177,7 @@ class BinaryTree():
 
         __inorden(self.root)
     
-    def postorden(self) -> None:# izquierda, derecha, nodo, evalua en sub arboles  // ordena de manera decedente, primero los mas grandes y despues los mas chicos
+    def postorden(self) -> None:
         
         def __postorden(root):
             if root is None:
@@ -193,7 +193,7 @@ class BinaryTree():
 
         __postorden(self.root)
 
-    def preorden(self) -> None:#empieza por el root va a la izquierda y despues a la derecha
+    def preorden(self) -> None:
         def __preorden(root):
             print(root.value)
             if root.left is not None:
@@ -203,7 +203,7 @@ class BinaryTree():
 
         __preorden(self.root)
 
-    def by_level(self) -> None:#saber el nivel de cada nodo, recorre por niveles, primero el root y despues los hijos
+    def by_level(self) -> None:
 
         pendings = Queue()
 
@@ -223,6 +223,7 @@ class BinaryTree():
                 # print(f'queue ')
                 # pendings.show()
                 # input()
+<<<<<<< HEAD
     
     
     def proxy_search(self, prefix: str) -> None:
@@ -320,3 +321,5 @@ class BinaryTree():
                 
                 
                 
+=======
+>>>>>>> b21bab647fe5dc7d78bc145788b9fd8955f19670

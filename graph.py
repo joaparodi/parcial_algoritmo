@@ -3,7 +3,6 @@ from list_ import List
 from queue import Queue
 from stack import Stack
 from heap import HeapMin
-from random import randint
 
 
 
@@ -100,7 +99,7 @@ class Graph(List):
                 for edge in vertex.edges:
                     print(edge)
 
-    def deep_show(self, origin) -> None:#barrido en profundidad
+    def deep_show(self, origin) -> None:
 
         def _deep_show(origin) -> None:
             pos_origin = self.search(origin, 'value')
@@ -118,7 +117,7 @@ class Graph(List):
         
         _deep_show(origin)
 
-    def amplitude_show(self, origin) -> None:#hace un barrido amplio
+    def amplitude_show(self, origin) -> None:
         for vertex in self:
             vertex.visited = False
     
@@ -143,7 +142,7 @@ class Graph(List):
                             pos_next_vertex = self.search(edge.destination, 'value')
                             pending_queue.arrive(self[pos_next_vertex])
 
-    def dijkstra(self, origin):#caminos minimos // busca el camino mas corto desde un nodo a todos los demas
+    def dijkstra(self, origin):
         from math import inf
         
         no_visited = HeapMin()
@@ -175,7 +174,7 @@ class Graph(List):
     
     
 
-    def kruskal(self, origin_vertex):#expansion minima // busca la arista de menor peso y va uniendo los vertices hasta que todos esten unidos
+    def kruskal(self, origin_vertex):
        
         def search_in_forest(forest, value):
             for index, tree in enumerate(forest):
@@ -221,7 +220,7 @@ class Graph(List):
         return forest[from_vertex] if from_vertex is not None else forest
 
 
-    def exist_path(self, origin, destination): #verifica si existe un camino entre dos vertices, si existe devuelve True sino False
+    def exist_path(self, origin, destination):
         
         for vertex in self:
             vertex.visited = False
