@@ -67,8 +67,13 @@ print()
 nom = input("ingresa el nombre por el cual quiere buscar :")
 arbol_nombre.proxy_search(nom.lower())
 print()
-num = input("ingresa el numero por el cual debo buscar:")
-arbol_numero.proxy_search(num)
+
+num = int(input("ingresa el numero por el cual debo buscar:"))
+nodo = arbol_numero.search(num)
+if nodo is None:
+    print("No existe ese número")
+else:
+    print(nodo.other_values)
 
 
 # 3
@@ -170,7 +175,7 @@ g.add_edge(2, "Boba Fett", "Chewbacca")
 g.add_edge(2, "Boba Fett", "C3PO")
 g.add_edge(2, "Boba Fett", "R2D2")
 
-g.add_edge(9, "C3PO", "Leia")
+g.add_edge(6, "C3PO", "Leia")
 g.add_edge(9, "C3PO", "R2D2")
 g.add_edge(4, "C3PO", "Han Solo")
 g.add_edge(5, "C3PO", "Chewbacca")

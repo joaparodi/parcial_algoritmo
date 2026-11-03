@@ -297,6 +297,8 @@ class BinaryTree():
             prioridad, tipo = heap.attention()
             print(f"- {tipo}: {prioridad}")
                 
+                
+                
     def contar_mega(self):
         def __contar_mega(root):
             cant = 0
