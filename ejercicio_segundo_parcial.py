@@ -36,10 +36,11 @@ arbol_tipo = BinaryTree()
 
 lista_pokemons = List()
 
-lista_pokemons = [
-    Pokemon(d['numero'], d['nombre'], d['tipo'], d['debilidad'], d['mega'], d['gigamax'])
-    for d in pokemons_dict.values()
-]
+lista_pokemons = List()
+for d in pokemons_dict.values():
+    lista_pokemons.append(
+        Pokemon(d['numero'], d['nombre'], d['tipo'], d['debilidad'], d['mega'], d['gigamax'])
+    )
 
 for p in lista_pokemons:
     arbol_nombre.insert_node(p.name, other_value=p)
@@ -49,10 +50,11 @@ for p in lista_pokemons:
     for tipo in p.tipo:
         pos = arbol_tipo.search(tipo)
         if pos is None:
-            arbol_tipo.insert_node(tipo, other_value=[p])
+            nueva = List()
+            nueva.append(p)
+            arbol_tipo.insert_node(tipo, other_value=nueva)
         else:
             pos.other_values.append(p)
-
 
 print("¡Árboles cargados exitosamente con", len(pokemons_dict), "Pokémon!")
 
@@ -97,10 +99,10 @@ arbol_tipo.buscar_por_tipo("Eléctrico")
 
 print("\n--- Listado ascendente por Número (Inorden en árbol_numero) ---")
 
-arbol_numero.inorden()
+arbol_numero.listar()
 
 print("\n--- listado ascendente por nombre------")
-arbol_nombre.inorden()
+arbol_nombre.listar()
 
 print("\n--- Listado por Nivel por Nombre (Breadth-first / by_level) ---")
 arbol_nombre.by_level()

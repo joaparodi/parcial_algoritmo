@@ -237,6 +237,19 @@ class BinaryTree():
 
         __proxy_search(self.root, prefix)
 
+    def listar(self):
+        def __listar(root):
+            if root.left is not None:
+                __listar(root.left)
+            p = root.other_values
+            print(f"{p.numero} - {p.name}")
+            if root.right is not None:
+                __listar(root.right)
+
+        if self.root is not None:
+            __listar(self.root)
+    
+    
            
     def buscar_por_tipo(self, tipo):
         nodo = self.search(tipo)
