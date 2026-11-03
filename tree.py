@@ -223,3 +223,100 @@ class BinaryTree():
                 # print(f'queue ')
                 # pendings.show()
                 # input()
+    
+    
+    def proxy_search(self, prefix: str) -> None:
+        
+        def __proxy_search(root, prefix):
+            if root.left is not None:
+                __proxy_search(root.left, prefix)
+            if prefix in str(root.value).lower():
+                print(f"pokemon : {root.value}-- Datos: {root.other_values}")
+            if root.right is not None:
+                __proxy_search(root.right, prefix)
+
+        __proxy_search(self.root, prefix)
+
+           
+    def buscar_por_tipo(self, tipo):
+        nodo = self.search(tipo)
+        if nodo is None:
+            print("No hay Pokémon de ese tipo")
+        else:
+            for p in nodo.other_values:
+                print(f"- {p.name} (Nº {p.numero})")
+
+    def mostrar_debilidades(self, nombre):
+        nodo = self.search(nombre)
+        if nodo is None:
+            print("Pokémon no encontrado")
+            return
+        tipos = nodo.other_values.tipo
+
+        def __recorrer(root):
+            if root.left is not None:
+                __recorrer(root.left)
+
+            p = root.other_values
+            if any(t in p.debilidad for t in tipos):
+                print(f"- {p.name} (Nº {p.numero})")
+
+            if root.right is not None:
+                __recorrer(root.right)
+
+        print(f"\nDébiles frente a {nombre} ({', '.join(tipos)}):")
+        if self.root is not None:
+            __recorrer(self.root)
+                
+    def contar_tipo(self, tipo):
+        def __contar_tipo(root):
+            cant = 0
+            if root.left is not None:
+                cant += __contar_tipo(root.left)
+
+            if tipo in root.other_values.tipo:
+                cant += 1
+
+            if root.right is not None:
+                cant += __contar_tipo(root.right)
+            return cant
+
+        if self.root is None:
+            return 0
+        return __contar_tipo(self.root)           
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
