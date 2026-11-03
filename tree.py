@@ -298,7 +298,6 @@ class BinaryTree():
             print(f"- {tipo}: {prioridad}")
                 
                 
-                
     def contar_mega(self):
         def __contar_mega(root):
             cant = 0
@@ -342,8 +341,6 @@ class BinaryTree():
                 
                 
                 
-                
-                
-                
+            
                 
         

@@ -1,7 +1,7 @@
 
 from tree import BinaryTree
 from pokemons_data import pokemons_dict
-
+from list_ import List
 
 
 # Ejercicio 1: Se tiene los datos de Pokémons de las 9 generaciones cargados de manera aleatoria (1025 en total) de los cuales se conoce su nombre, número, tipo/tipos, debilidad frente a tipo/tipos, si tiene mega evolucion (bool) y si tiene forma gigamax (bool) para el cual debemos construir tres árboles para acceder de manera eficiente a los datos contemplando lo siguiente:
@@ -33,6 +33,8 @@ class Pokemon:
 arbol_nombre = BinaryTree()
 arbol_numero = BinaryTree()
 arbol_tipo = BinaryTree()
+
+lista_pokemons = List()
 
 lista_pokemons = [
     Pokemon(d['numero'], d['nombre'], d['tipo'], d['debilidad'], d['mega'], d['gigamax'])
